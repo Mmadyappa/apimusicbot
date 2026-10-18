@@ -1,13 +1,43 @@
-# ShrutixMusic
+<h1 align="center">ShrutixMusic</h1>
 
-Telegram voice chat music bot. A bot account handles commands, assistant accounts join the voice chats and stream the audio, and tracks are fetched through the ShrutiBots API.
+<p align="center">
+  <strong>Music for Telegram voice chats.</strong><br>
+  Audio and video playback with rich controls, queue management and assistant accounts.
+</p>
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/NoxxOP/ShrutixMusic)
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/NoxxOP/ShrutixMusic)
+<p align="center">
+  <img src="ShrutixMusic/assets/ShrutixMusic.png" alt="ShrutixMusic" width="220">
+</p>
 
-Channel: [@ShrutiBots](https://t.me/ShrutiBots) | Support: [ShrutiSupportChat](https://t.me/ShrutiSupportChat) | Direct contact with Nand Yaduwanshi: [@WTF_WhyMeeh](https://t.me/WTF_WhyMeeh)
+<p align="center">
+  <a href="https://heroku.com/deploy?template=https://github.com/NoxxOP/ShrutixMusic">
+    <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku">
+  </a>
+</p>
 
-Tap any section below to open it.
+<p align="center">
+  <a href="https://render.com/deploy?repo=https://github.com/NoxxOP/ShrutixMusic">
+    <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://t.me/ShrutiBots">
+    <img src="https://img.shields.io/badge/Channel-ShrutiBots-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" alt="ShrutiBots channel">
+  </a>
+  <a href="https://t.me/ShrutiSupportChat">
+    <img src="https://img.shields.io/badge/Support-Join%20Chat-5865F2?style=for-the-badge&logo=telegram&logoColor=white" alt="Support chat">
+  </a>
+  <a href="https://t.me/WTF_WhyMeeh">
+    <img src="https://img.shields.io/badge/Contact-Nand%20Yaduwanshi-20232A?style=for-the-badge&logo=telegram&logoColor=white" alt="Contact Nand Yaduwanshi">
+  </a>
+</p>
+
+<p align="center">
+  <sub>Open any section below to explore the documentation.</sub>
+</p>
+
+---
 
 <details>
 <summary><b>Overview</b></summary>
