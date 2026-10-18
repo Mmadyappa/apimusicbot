@@ -1,205 +1,247 @@
-<div align="center">
+# ShrutixMusic
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12,20,24,30&height=230&section=header&text=ShrutixMusic&fontSize=68&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Next-gen%20Telegram%20Voice%20Chat%20Music%20Engine&descAlignY=60&descSize=18" width="100%" alt="ShrutixMusic"/>
+Telegram voice chat music bot. A bot account handles commands, assistant accounts join the voice chats and stream the audio, and tracks are fetched through the ShrutiBots API.
 
-<a href="https://github.com/NoxxOP/ShrutixMusic">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=20&duration=2800&pause=900&color=00E5FF&center=true&vCenter=true&width=700&lines=Rich+message+player+with+live+colored+controls;Autoplay+that+never+lets+the+vibe+die;Multi+assistant+voice+chat+streaming;Deploy+in+minutes+on+Heroku%2C+Render+or+VPS" alt="Typing SVG"/>
-</a>
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/NoxxOP/ShrutixMusic)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/NoxxOP/ShrutixMusic)
 
-<br/>
+Channel: [@ShrutiBots](https://t.me/ShrutiBots) | Support: [ShrutiSupportChat](https://t.me/ShrutiSupportChat) | Direct contact with Nand Yaduwanshi: [@WTF_WhyMeeh](https://t.me/WTF_WhyMeeh)
 
-<img src="https://raw.githubusercontent.com/NoxxOP/ShrutixMusic/main/ShrutixMusic/assets/ShrutixMusic.png" width="420" alt="ShrutixMusic Logo"/>
+Tap any section below to open it.
 
-<br/><br/>
+<details>
+<summary><b>Overview</b></summary>
 
-<a href="https://t.me/ShrutiBots"><img src="https://img.shields.io/badge/Channel-ShrutiBots-00E5FF?style=for-the-badge&logo=telegram&logoColor=white&labelColor=0b0f1a" alt="Channel"/></a>
-<a href="https://t.me/ShrutiSupportChat"><img src="https://img.shields.io/badge/Support-Chat-7C4DFF?style=for-the-badge&logo=telegram&logoColor=white&labelColor=0b0f1a" alt="Support"/></a>
-<a href="https://t.me/WTF_WhyMeeh"><img src="https://img.shields.io/badge/Owner-Nand-FF4081?style=for-the-badge&logo=telegram&logoColor=white&labelColor=0b0f1a" alt="Owner"/></a>
+<br>
 
-<br/>
+- The bot client (Kurigram) receives commands and renders the player interface.
+- One to five assistant accounts (string sessions) join voice chats through PyTgCalls and stream audio or video, processed by FFmpeg.
+- Track metadata comes from YouTube search and the Spotify, Apple Music, Resso and SoundCloud resolvers. Audio and video files are downloaded through the ShrutiBots API.
+- Queue state is kept in memory per chat. Settings, authorized users, bans and statistics are stored in MongoDB.
+- The now playing message is a rich message that is edited in place as playback progresses.
 
-<img src="https://img.shields.io/github/stars/NoxxOP/ShrutixMusic?style=flat-square&color=00E5FF&labelColor=0b0f1a" alt="Stars"/>
-<img src="https://img.shields.io/github/forks/NoxxOP/ShrutixMusic?style=flat-square&color=7C4DFF&labelColor=0b0f1a" alt="Forks"/>
-<img src="https://img.shields.io/github/issues/NoxxOP/ShrutixMusic?style=flat-square&color=FF4081&labelColor=0b0f1a" alt="Issues"/>
-<img src="https://img.shields.io/github/last-commit/NoxxOP/ShrutixMusic?style=flat-square&color=00E676&labelColor=0b0f1a" alt="Last Commit"/>
-<img src="https://img.shields.io/github/repo-size/NoxxOP/ShrutixMusic?style=flat-square&color=FFC400&labelColor=0b0f1a" alt="Repo Size"/>
+</details>
 
-</div>
+<details>
+<summary><b>Features</b></summary>
 
-<br/>
+<br>
 
-## ⚡ System Overview
+<details>
+<summary>Playback</summary>
 
-```text
-┌──────────────────────────────────────────────────────────────┐
-│  ENGINE      Kurigram  +  PyTgCalls 0.9.7                    │
-│  RUNTIME     Python 3.11  ·  uvloop  ·  FFmpeg               │
-│  DATABASE    MongoDB (Motor, fully async)                    │
-│  AUDIO       ShrutiBots API download chain + yt-dlp          │
-│  ASSISTANTS  Up to 5 userbot accounts, auto balanced         │
-│  LANGUAGES   English · Hindi · Punjabi · Arabic              │
-│  DEPLOY      Heroku · Render · Docker · VPS                  │
-└──────────────────────────────────────────────────────────────┘
-```
+<br>
 
-<br/>
+Play audio or video in group voice chats, or in a linked channel with the `c` commands. Pause, resume, skip, end, seek forward and back, change speed from 0.5x to 2.0x, loop, shuffle, and replace the current track with force play. Autoplay keeps music going when the queue ends and can be toggled per group.
 
-## 🧬 Core Features
+</details>
 
-<table>
-<tr>
-<td width="50%" valign="top">
+<details>
+<summary>Player interface</summary>
 
-### 🎛️ Rich Message Player
-Now playing panel is a native rich message, not a plain caption with inline keys.
+<br>
 
-- Live progress bar that updates in place
-- Replay, Pause/Resume, Skip and Queue controls
-- Controls change color on every progress tick
-- Queue count shown right on the button
-- Queued songs get a Play Now / Skip / End panel
+The now playing panel is a rich message with replay, pause or resume, skip and queue controls and a live progress bar. Control colors change on every progress update. Songs added to a running queue get their own Play Now, Skip and End controls.
 
-</td>
-<td width="50%" valign="top">
+</details>
 
-### 🔁 Autoplay Engine
-Queue ran out? The bot keeps the music going.
+<details>
+<summary>Sources</summary>
 
-- Picks related tracks automatically
-- Admin toggle with `/autoplay`
-- Retry aware, survives slow API responses
-- Works together with loop and shuffle
+<br>
 
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
+YouTube search, links and playlists. Spotify tracks, albums, playlists and artists. Apple Music, Resso and SoundCloud links. Telegram audio and video files. Live streams and index or M3U8 links.
 
-### 🎧 Playback Control
-- Pause, resume, skip, end
-- Seek forward and backward
-- Speed from 0.5x to 2.0x
-- Loop modes and queue shuffle
-- Channel play for linked channels
-- Audio and video streaming
+</details>
 
-</td>
-<td width="50%" valign="top">
+<details>
+<summary>Administration</summary>
 
-### 🌐 Sources
-- YouTube search, links and playlists
-- Spotify tracks, albums, playlists, artists
-- Apple Music and Resso links
-- SoundCloud links
-- Telegram audio and video files
-- Live streams and M3U8 or index links
+<br>
 
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
+Authorized users per group, sudo users, global bans and chat blacklist. Broadcast, logger, maintenance mode and auto end. Statistics, speedtest, git based update and restart.
 
-### ✨ Polished Private Chat
-- Random message effects on start, help and ping
-- Two page paginated help menu
-- Colored inline buttons on key panels
-- Clean YouTube style thumbnails, no heavy edits
+</details>
 
-</td>
-<td width="50%" valign="top">
+<details>
+<summary>Languages</summary>
 
-### 🛡️ Control Room
-- Sudo users, gban, block and chat blacklist
-- Maintenance mode and auto end
-- Broadcast, logger and live logs
-- Active voice and video chat monitor
-- Stats, speedtest, git update and restart
+<br>
 
-</td>
-</tr>
-</table>
+English, Hindi, Punjabi and Arabic.
 
-<br/>
+</details>
 
-## 🎮 Command Deck
+</details>
 
-| Zone | Commands |
-|:--|:--|
-| **Play** | `/play` `/vplay` `/cplay` `/cvplay` `/playforce` `/vplayforce` |
-| **Control** | `/pause` `/resume` `/skip` `/end` `/seek` `/seekback` `/speed` `/loop` `/shuffle` `/autoplay` |
-| **Queue** | `/queue` `/player` `/playing` |
-| **Setup** | `/playmode` `/channelplay` `/auth` `/unauth` `/authlist` `/settings` `/language` |
-| **Tools** | `/song` `/ping` `/stats` `/speedtest` `/reload` `/reboot` |
-| **Sudo** | `/broadcast` `/gban` `/block` `/blchat` `/maintenance` `/logger` `/autoend` `/addsudo` `/delsudo` `/update` `/restart` |
+<details>
+<summary><b>Requirements</b></summary>
 
-Add `c` in front of a command to run it for the linked channel, for example `/cplay` and `/cskip`.
-Full explanation of every command lives inside the bot under `/help`.
+<br>
 
-<br/>
+- Python 3.11
+- FFmpeg
+- MongoDB
+- Telegram API credentials and a bot token
+- A Pyrogram v2 string session for each assistant account
+- A ShrutiBots API key from [@SHRUTIAPIBOT](https://t.me/SHRUTIAPIBOT)
 
-## 🚀 One Click Deploy
+</details>
 
-<div align="center">
+<details>
+<summary><b>Configuration</b></summary>
 
-<a href="https://dashboard.heroku.com/new?template=https://github.com/NoxxOP/ShrutixMusic"><img src="https://img.shields.io/badge/Deploy%20on-Heroku-7C4DFF?style=for-the-badge&logo=heroku&logoColor=white&labelColor=0b0f1a" alt="Heroku"/></a>
-<a href="https://render.com/deploy?repo=https://github.com/NoxxOP/ShrutixMusic"><img src="https://img.shields.io/badge/Deploy%20on-Render-00E5FF?style=for-the-badge&logo=render&logoColor=white&labelColor=0b0f1a" alt="Render"/></a>
+<br>
 
-</div>
+Values are read from the environment or from a `.env` file in the project root.
 
-<br/>
+<details>
+<summary>Required variables</summary>
 
-## 🔐 Environment Variables
+<br>
 
-**Required**
-
-| Variable | What it is |
-|:--|:--|
-| `API_ID` and `API_HASH` | From [my.telegram.org](https://my.telegram.org) |
-| `BOT_TOKEN` | From [@BotFather](https://t.me/BotFather) |
+| Variable | Description |
+| --- | --- |
+| `API_ID` | Telegram API id |
+| `API_HASH` | Telegram API hash |
+| `BOT_TOKEN` | Bot token from BotFather |
 | `MONGO_DB_URI` | MongoDB connection string |
-| `OWNER_ID` | Your Telegram user id |
-| `LOGGER_ID` | Log group id, bot must be admin there |
-| `STRING_SESSION` | Pyrogram v2 session string of the assistant account |
-| `SHRUTI_API_KEY` | Key from [@SHRUTIAPIBOT](https://t.me/SHRUTIAPIBOT) |
-| `SHRUTI_API_URL` | Defaults to `https://api.shrutibots.site` |
+| `OWNER_ID` | Telegram user id of the owner |
+| `LOGGER_ID` | Log group id. The bot must be an admin there |
+| `STRING_SESSION` | Session string of the first assistant account |
+| `SHRUTI_API_KEY` | Key for the download API |
+| `SHRUTI_API_URL` | Download API base URL. Default is `https://api.shrutibots.site` |
 
-**Optional**
+</details>
 
-| Variable | Default | What it does |
-|:--|:--|:--|
-| `STRING_SESSION2` to `STRING_SESSION5` | empty | Extra assistants for more groups |
-| `DURATION_LIMIT` | `60` | Max track length in minutes |
-| `PLAYLIST_FETCH_LIMIT` | `25` | Max tracks pulled from a playlist |
-| `TG_AUDIO_FILESIZE_LIMIT` and `TG_VIDEO_FILESIZE_LIMIT` | built in | Telegram file size caps |
-| `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` | empty | Enables Spotify links |
-| `SUPPORT_CHANNEL` and `SUPPORT_CHAT` | ShrutiBots links | Buttons shown in the bot |
-| `UPSTREAM_REPO` and `UPSTREAM_BRANCH` | this repo, `main` | Source for `/update` |
-| `GIT_TOKEN` | empty | Needed for private upstream repos |
-| `HEROKU_API_KEY` and `HEROKU_APP_NAME` | empty | Lets the bot restart and update on Heroku |
+<details>
+<summary>Optional variables</summary>
 
-<br/>
+<br>
 
-## 🖥️ VPS Setup
+| Variable | Description |
+| --- | --- |
+| `STRING_SESSION2` to `STRING_SESSION5` | Additional assistant accounts |
+| `DURATION_LIMIT` | Maximum track length in minutes. Default 60 |
+| `PLAYLIST_FETCH_LIMIT` | Maximum tracks imported from a playlist. Default 25 |
+| `SPOTIFY_CLIENT_ID` | Enables Spotify links |
+| `SPOTIFY_CLIENT_SECRET` | Enables Spotify links |
+| `SUPPORT_CHANNEL` | Channel link used by bot buttons |
+| `SUPPORT_CHAT` | Chat link used by bot buttons |
+| `UPSTREAM_REPO` | Repository used by `/update` |
+| `UPSTREAM_BRANCH` | Branch used by `/update`. Default `main` |
+| `GIT_TOKEN` | Needed if the upstream repository is private |
+| `HEROKU_API_KEY` | Allows restart and update on Heroku |
+| `HEROKU_APP_NAME` | Allows restart and update on Heroku |
+
+</details>
+
+Assistant accounts must not be banned in the target groups and should be members of the log group.
+
+</details>
+
+<details>
+<summary><b>Deployment</b></summary>
+
+<br>
+
+<details>
+<summary>Heroku and Render</summary>
+
+<br>
+
+Use the deploy buttons at the top of this page, fill in the variables from the Configuration section, and run a single worker. `app.json`, `heroku.yml`, `Procfile` and `runtime.txt` are included in the repository.
+
+</details>
+
+<details>
+<summary>VPS (Ubuntu)</summary>
+
+<br>
+
+Install the system packages.
 
 ```bash
-sudo apt-get update && sudo apt-get install -y python3 python3-pip python3-venv git ffmpeg screen
-git clone https://github.com/NoxxOP/ShrutixMusic
-cd ShrutixMusic
-python3 -m venv venv
-source venv/bin/activate
-pip install --upgrade pip
-pip install -r requirements.txt
-nano .env
+sudo apt-get update
 ```
 
-Run it in a detached session:
+```bash
+sudo apt-get install -y python3 python3-pip python3-venv git ffmpeg screen
+```
+
+Start a screen session first, so the virtual environment is created and activated inside it.
 
 ```bash
 screen -S shruti
+```
+
+Inside the screen session, clone the repository.
+
+```bash
+git clone https://github.com/NoxxOP/ShrutixMusic
+```
+
+```bash
+cd ShrutixMusic
+```
+
+Create and activate the virtual environment.
+
+```bash
+python3 -m venv venv
+```
+
+```bash
+source venv/bin/activate
+```
+
+Install the dependencies.
+
+```bash
+pip install -r requirements.txt
+```
+
+Create the configuration file and fill in the variables.
+
+```bash
+nano .env
+```
+
+Start the bot.
+
+```bash
 bash start
 ```
 
-Or run it as a service:
+Detach from the session with `Ctrl+A` then `D`. Reattach later with:
+
+```bash
+screen -r shruti
+```
+
+</details>
+
+<details>
+<summary>Docker</summary>
+
+<br>
+
+```bash
+docker build -t shrutixmusic .
+```
+
+```bash
+docker run -d --name shrutixmusic --env-file .env shrutixmusic
+```
+
+</details>
+
+<details>
+<summary>systemd service</summary>
+
+<br>
+
+Create `/etc/systemd/system/shrutixmusic.service`:
 
 ```ini
 [Unit]
@@ -216,72 +258,243 @@ RestartSec=5
 WantedBy=multi-user.target
 ```
 
+Adjust the paths to match your server, then enable the service.
+
 ```bash
 sudo systemctl daemon-reload
+```
+
+```bash
 sudo systemctl enable --now shrutixmusic
+```
+
+View the logs.
+
+```bash
 journalctl -u shrutixmusic -f
 ```
 
-**Docker**
+</details>
 
-```bash
-docker build -t shrutixmusic .
-docker run -d --name shrutixmusic --env-file .env shrutixmusic
-```
+</details>
 
-<br/>
+<details>
+<summary><b>Commands</b></summary>
 
-## 🗂️ Project Map
+<br>
+
+Add the bot to a group, start a voice chat, and send `/play <name or link>`. Prefix a playback command with `c` (for example `/cplay` or `/cskip`) to control the linked channel. `/help` in a private chat shows every command with a description.
+
+<details>
+<summary>Playback</summary>
+
+<br>
+
+| Command | Description |
+| --- | --- |
+| `/play` | Play audio |
+| `/vplay` | Play video |
+| `/playforce` | Replace the current track with audio |
+| `/vplayforce` | Replace the current track with video |
+| `/pause` | Pause the stream |
+| `/resume` | Resume the stream |
+| `/skip` | Skip to the next track |
+| `/end` | End playback and leave the voice chat |
+| `/seek` | Seek forward |
+| `/seekback` | Seek backward |
+| `/speed` | Change playback speed |
+| `/loop` | Set loop mode |
+| `/shuffle` | Shuffle the queue |
+| `/autoplay` | Toggle autoplay for the group |
+
+</details>
+
+<details>
+<summary>Queue and information</summary>
+
+<br>
+
+| Command | Description |
+| --- | --- |
+| `/queue` | Show the queue |
+| `/player` | Show the player |
+| `/playing` | Show the current track |
+| `/song` | Download a song |
+| `/ping` | Bot latency and system status |
+| `/stats` | Bot statistics |
+
+</details>
+
+<details>
+<summary>Group settings</summary>
+
+<br>
+
+| Command | Description |
+| --- | --- |
+| `/auth` | Authorize a user |
+| `/unauth` | Remove an authorized user |
+| `/authlist` | List authorized users |
+| `/playmode` | Set the play mode |
+| `/channelplay` | Link a channel for channel play |
+| `/settings` | Open group settings |
+| `/language` | Change the language |
+
+</details>
+
+<details>
+<summary>Sudo</summary>
+
+<br>
+
+| Command | Description |
+| --- | --- |
+| `/broadcast` | Send a message to all served chats |
+| `/gban` | Ban a user globally |
+| `/block` | Block a user from the bot |
+| `/blchat` | Blacklist a chat |
+| `/maintenance` | Toggle maintenance mode |
+| `/logger` | Toggle logging |
+| `/autoend` | Toggle automatic end of empty streams |
+| `/addsudo` | Add a sudo user |
+| `/delsudo` | Remove a sudo user |
+| `/update` | Update from the upstream repository |
+| `/restart` | Restart the bot |
+
+</details>
+
+</details>
+
+<details>
+<summary><b>Project layout</b></summary>
+
+<br>
 
 ```text
-ShrutixMusic
-├── ShrutixMusic
-│   ├── core          bot, userbot, call engine, mongo, git
-│   ├── platforms     YouTube, Spotify, Apple, Resso, SoundCloud, Telegram
-│   ├── plugins
-│   │   ├── admins    pause, resume, skip, seek, speed, loop, shuffle, autoplay
-│   │   ├── bot       start, help, settings, inline, group logs
-│   │   ├── play      play, channel play, live, play mode
-│   │   ├── sudo      gban, block, blacklist, maintenance, logger, restart
-│   │   ├── tools     ping, stats, queue, song, language, speedtest
-│   │   └── misc      broadcast, autoleave, watcher, seeker
-│   └── utils         rich stream, inline keyboards, thumbnails, stream engine
-├── strings           helpers and language files
-├── config.py
-├── Dockerfile
-└── start
+ShrutixMusic/
+  core/        bot client, assistants, call layer, database, git helpers
+  platforms/   YouTube, Spotify, Apple Music, Resso, SoundCloud, Telegram
+  plugins/     command handlers: admins, bot, play, sudo, tools, misc
+  utils/       stream engine, rich message player, inline keyboards, thumbnails
+strings/       help text and language files
+config.py      environment loading and defaults
 ```
 
-<br/>
+</details>
 
-## 🛠️ Troubleshooting
+<details>
+<summary><b>Development</b></summary>
 
-| Problem | Fix |
-|:--|:--|
-| Assistant will not join | Start a voice chat in the group first and make sure the assistant is not banned there |
-| Silence while playing | Run `ffmpeg -version` and install FFmpeg if it is missing |
-| Songs fail to fetch | Check `SHRUTI_API_KEY` and `SHRUTI_API_URL` |
-| Bot is online but silent | Verify `MONGO_DB_URI` and that your IP is whitelisted in Atlas |
-| Stuck after a crash | Send `/reboot` in the group, then play again |
+<br>
 
-<br/>
+<details>
+<summary>Add a command</summary>
 
-## 🤝 Contributing
+<br>
 
-Bugs, ideas and pull requests are welcome. Open an issue first for big changes so we can talk it through.
+Create a module under `ShrutixMusic/plugins/<group>/` and register the handlers on the shared bot client.
 
-<br/>
+</details>
 
-## 📜 License and Credits
+<details>
+<summary>Add a language</summary>
 
-This project follows the terms in [LICENSE](LICENSE). In short, it is free for personal and educational use, credits and the original repository link must stay in every fork, and reselling or rebranding is not allowed.
+<br>
 
-Built with Kurigram, PyTgCalls, yt-dlp, FFmpeg, Motor and aiohttp.
+Copy `strings/langs/en.yml` to a new file named after the language code and translate the values. Keys missing from a translation fall back to English.
 
-<div align="center">
+</details>
 
-**Created and maintained by [Nand Yaduwanshi](https://github.com/NoxxOP)**
+<details>
+<summary>Add a help topic</summary>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12,20,24,30&height=120&section=footer" width="100%" alt="footer"/>
+<br>
 
-</div>
+Add the text as `HELP_<n>` in `strings/helpers.py`, the button label as `H_B_<n>` in the language files, and list the topic in `utils/inline/help.py` and `plugins/bot/help.py`. The help menu shows nine topics per page.
+
+</details>
+
+<details>
+<summary>Player controls</summary>
+
+<br>
+
+The rich message player, its buttons and their colors are defined in `ShrutixMusic/utils/rich_stream.py`.
+
+</details>
+
+</details>
+
+<details>
+<summary><b>Troubleshooting</b></summary>
+
+<br>
+
+<details>
+<summary>Assistant does not join the voice chat</summary>
+
+<br>
+
+A voice chat must already be running, and the assistant account must not be banned or restricted in that group.
+
+</details>
+
+<details>
+<summary>No sound while playing</summary>
+
+<br>
+
+Run `ffmpeg -version`. If FFmpeg is missing, install it and restart the bot.
+
+</details>
+
+<details>
+<summary>Tracks fail to load</summary>
+
+<br>
+
+Verify `SHRUTI_API_KEY` and `SHRUTI_API_URL`, and confirm the key is active in [@SHRUTIAPIBOT](https://t.me/SHRUTIAPIBOT).
+
+</details>
+
+<details>
+<summary>Bot does not respond</summary>
+
+<br>
+
+Verify `MONGO_DB_URI` and, if you use MongoDB Atlas, that the server IP is on the allow list.
+
+</details>
+
+<details>
+<summary>Playback stuck after a crash</summary>
+
+<br>
+
+Send `/reboot` in the group and play again.
+
+</details>
+
+</details>
+
+<details>
+<summary><b>Contributing</b></summary>
+
+<br>
+
+Open an issue before large changes and keep each pull request focused on one change.
+
+</details>
+
+<details>
+<summary><b>License</b></summary>
+
+<br>
+
+See the `LICENSE` file. Personal and educational use is allowed. Credits and the original repository link must be kept in forks. Reselling and rebranding are not allowed.
+
+</details>
+
+## Contact
+
+Nand Yaduwanshi: [@WTF_WhyMeeh](https://t.me/WTF_WhyMeeh) on Telegram. Message directly for support, custom bots and business enquiries.
