@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="ShrutixMusic/assets/ShrutixMusic.png" alt="ShrutixMusic" width="220">
+  <img src="https://raw.githubusercontent.com/NoxxOP/ShrutixMusic/main/ShrutixMusic/assets/ShrutixMusic.png" alt="ShrutixMusic" width="220">
 </p>
 
 <p align="center">
